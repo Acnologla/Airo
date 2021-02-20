@@ -10,7 +10,9 @@ export default async (req, res) => {
             return res.status(401).send("Username arleady taken")
         }
         const date = Date.now()
-        client.query("INSERT INTO Users(username, password, created) VALUES ($1, crypt($2, gen_salt('bf', 8), $3)", [username, password,date])
+        client.query(
+            "INSERT INTO Users(username, password, created) VALUES ($1, crypt($2, gen_salt('bf', 8), $3)", 
+            [username, password,date])
             .then(() => {
                 res.json({username,date})
             }).catch(() => {

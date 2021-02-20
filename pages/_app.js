@@ -1,8 +1,8 @@
 import '../styles/globals.css'
 import "tailwindcss/tailwind.css";
-import Nav from "../src/components/nav"
-function MyApp({ Component, pageProps }) {
+import Nav from "../src/components/navbar"
 
+function MyApp({ Component, pageProps }) {
   return (
     <>
      <Nav/>
