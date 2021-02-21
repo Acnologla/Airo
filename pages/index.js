@@ -9,6 +9,8 @@ const Context = createContext({
 
 export default function Home() {
   return (
-    <Content />
+    <Context.Provider value={{}}>
+      <Content />
+    </Context.Provider>
   )
 }
