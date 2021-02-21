@@ -24,7 +24,7 @@ export default function Content() {
               <button className="block text-gray-500  sm:inline-block  sm:ml-6">RISING</button>
             </center>
           </div>
-          <div className="bg-white border  m-auto shadow-lg">
+          <div className="bg-white border mt-2 m-auto shadow-lg sm:mt-0">
               {cards.map((el, i) => 
                 <Card 
                   key={i}
