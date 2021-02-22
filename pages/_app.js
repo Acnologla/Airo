@@ -32,7 +32,6 @@ function MyApp({ Component, pageProps }) {
       } catch (_) {
         localStorage.removeItem("token")
       }
-      console.log(_context)
     }
 
     setContext(_context)

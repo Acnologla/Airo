@@ -16,11 +16,12 @@ export default async (req, res) => {
             "INSERT INTO Users(username, password, created) VALUES ($1, crypt($2, gen_salt('bf')), to_timestamp($3)) RETURNING id",
             [username, password, date])
             .then((response) => {
-                const [{id}] = response.rows
-                const token = sign({id}, process.env.SECRET, {
+                const [{ id }] = response.rows
+                const token = sign({ id }, process.env.SECRET, {
                     expiresIn: 604800 //1 week
                 })
-                res.json({ token, date, id})
+
+                res.json({ token, user: { created: date, id, username } })
             }).catch((e) => {
                 console.log(e)
                 res.status(500).end()
