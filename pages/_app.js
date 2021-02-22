@@ -13,8 +13,13 @@ function MyApp({ Component, pageProps }) {
   useEffect(async () => {
     const token = localStorage.getItem("token")
     const _context = {
-      theme: localStorage.getItem("theme") || "white",
-      setContext
+      setContext: (auth) => {
+        const newContext = {
+          auth
+        }
+        newContext.setContext = _context.setContext
+        setContext(newContext)
+      }
     }
     if (token) {
       try {
@@ -23,7 +28,6 @@ function MyApp({ Component, pageProps }) {
             authorization: token
           }
         })
-        console.log(response)
         _context.auth = response.data
       } catch (_) {
         localStorage.removeItem("token")
