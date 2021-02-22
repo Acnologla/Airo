@@ -1,13 +1,16 @@
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { faSearch, faCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import {useContext} from "react"
+import MainContext from "../context/main"
 import React, { useState } from 'react';
+import Login from "./login"
 
 export default function NavBar() {
 
     const [isHidden, setMenu] = useState(true);
-
+    const [login, setLogin] = useState(false)
+    const context = useContext(MainContext)
     return (
       <nav className="bg-red-500 dark:bg-dark fixed inset-x-0 top-0 z-10">
           <div className="flex items-center px-10 shadow-sm py-2 justify-between ">
@@ -35,7 +38,11 @@ export default function NavBar() {
             <div className="md:flex hidden items-center justify-end ">
                 <div><FontAwesomeIcon className="cursor-pointer text-white fa-lg ml-5" icon={faBell} /></div>
                 <div><FontAwesomeIcon className="cursor-pointer text-white fa-lg h-13 w-13 ml-5" icon={faCog} /></div>
-                <div className="h-6 w-6 ml-5 rounded-full bg-gray-500" alt="" />
+                {
+                context.auth ?  
+                <div className="h-6 w-6 ml-5 rounded-full bg-gray-500" alt="" /> : 
+                <button className="ml-5" onClick={() => setLogin(!login)}>Login</button> 
+                }
             </div>
           </div>
           <div className={isHidden ? "hidden" : "md:hidden block center text-center cursor-pointer"}>
@@ -44,5 +51,6 @@ export default function NavBar() {
             <a href="#" className="hover:text-white block ml-5 p-5 text-lx" >SignUp</a>
             <a href="#" className="hover:text-white block ml-5 p-5 text-lx" >Configuration</a>
           </div>
+          {login ? <Login/> : <></>}
       </nav>)
 }

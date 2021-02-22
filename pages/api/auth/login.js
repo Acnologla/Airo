@@ -1,18 +1,19 @@
-import client from "../models/client.js"
+import client from "../../../models/client"
 import { sign } from "jsonwebtoken"
 
 export default async (req, res) => {
     if (req.method === "POST"){
         const {username, password} = req.body
-        const [user] = await client.query(
-            "SELECT * EXCEPT password FROM  Users WHERE username = $1 and password = crypt($2, gen_salt('bf', 8))",
+        const result = await client.query(
+            "SELECT id, created, username FROM Users WHERE username = $1 and password = crypt($2, password)",
             [username,password])
+        const [user] = result.rows
         if (!user){
            return res.status(401).send("Invalid credentials")
         }
-        user.token = sign({id: user.id}, process.env.SECRET,{
+        const token = sign({id: user.id}, process.env.SECRET,{
             expiresIn: 604800 //1 week
         })
-        res.status(200).json(user)
+        res.status(200).json({token,user})
     }
 }
