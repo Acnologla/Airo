@@ -43,6 +43,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <MainContext.Provider value={context}>
         <Nav />
+        <div style={{marginTop: "40px"}}></div>
         <Component {...pageProps} />
       </MainContext.Provider>
     </>
