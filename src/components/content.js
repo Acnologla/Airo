@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import Card from "./card.js"
 import CreatePost from "./createPost"
-import useSWR from 'swr'
-import axios from "axios"
 
-export default function Content() {
+export default function Content({posts}) {
   const [postForm, createPost] = useState(false)
-  const fetcher = (...args) => axios(...args).then(res => res.data)
-  const { data, error } = useSWR("/api/posts", fetcher)
-  if (error) return <h1>Error</h1>
-  if (!data) return <h1>Loading....</h1>
   return (
     <div className="content-center w-full sm:mt-2 relative top-7 ">
       {postForm ? <CreatePost /> : <></>}
@@ -22,7 +16,7 @@ export default function Content() {
           </center>
         </div>
         <div className="cursor-pointer bg-white border mt-2 m-auto shadow-lg sm:mt-0">
-          {data.map((el, i) =>
+          {posts.map((el, i) =>
             <Card
               key={i}
               title={el.title}

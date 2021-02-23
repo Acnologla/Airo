@@ -1,4 +1,5 @@
 import client from "../../models/client"
+import { formatDate } from "../../src/utils/utils"
 
 export default function Post({ post }) {
     if (!post || !post.id) return <h1>Not found</h1>
@@ -27,7 +28,7 @@ export async function getStaticProps({ params }) {
     if (post){
         const author = await client.query("SELECT id, username FROM Users where id = $1", [result.rows[0].author])
         post.author = author.rows[0]
-        post.created = `${post.created.getDate()}/${post.created.getMonth() + 1}/${post.created.getFullYear()}`
+        post.created = formatDate(post.created)
     } 
     return {
         props: {
