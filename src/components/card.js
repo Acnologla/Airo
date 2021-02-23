@@ -1,17 +1,14 @@
 import React from 'react';
-import {useRouter} from "next/router"
+import Link from 'next/link'
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Card(props) {
-    const router = useRouter()
-    const redirect = () => {
-        router.push(`/posts/${props.id}`)
-    }
     return (
-        <div onClick={redirect}>
+        <Link href={`/posts/${props.id}`}>
+            <a>
             <div className="p-5 flex">
                 <img src="https://pbs.twimg.com/profile_images/1098817973484105729/ECyNxjXX_400x400.png" 
                      className="sm:h-36 sm:w-36 h-16 w-16 bg-grey flex-shrink-0 border-none" />
@@ -35,6 +32,7 @@ export default function Card(props) {
                 </div>
             </div>
             <hr></hr>
-        </div>
+            </a>
+        </Link>
     )
 }
