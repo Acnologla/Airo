@@ -11,7 +11,7 @@ export default async (req, res) => {
         return needAuth(async (req, res) => {
             const { content, target } = req.body
             const author = req.userID
-            if (!content || !target) return res.status(400).end()
+            if (!content || target == null) return res.status(400).end()
             const created = new Date()
             const query = `INSERT INTO Comments(${parseInt(target.type) === 0 ? "postId" : "commentId"}, content, author, created) VALUES ($1, $2, $3, $4) RETURNING id`
             try{
@@ -24,9 +24,13 @@ export default async (req, res) => {
         })(req,res)
     } else if (req.method === "GET") {
         const {type, id} = req.query
-        if (!id || !type) return res.status(400).end()
+        if (!id || type == null) return res.status(400).end()
         const query = `SELECT * FROM Comments WHERE ${parseInt(type) === 0 ? "postId" : "commentId"} = $1`
         const result = await client.query(query, [id])
+        for (const comment of result.rows){
+            const authorResult = await client.query('SELECT id, username FROM Users where id = $1', [comment.author])
+            comment.author = authorResult.rows[0]
+        }
         return res.json(result.rows)
     }
 }
