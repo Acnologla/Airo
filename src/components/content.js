@@ -19,6 +19,7 @@ export default function Content({posts}) {
           {posts.map((el, i) =>
             <Card
               key={i}
+              comments={el.comments}
               title={el.title}
               desc={el.content.slice(0, 200)}
               id={el.id}

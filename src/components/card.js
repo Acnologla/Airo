@@ -20,7 +20,7 @@ export default function Card(props) {
                     </div>
                     <div className="mt-5 items-end text-sm">
                         <button className="ring-1 px-5 py-1 text-sm text-red-500 ring-red-500">
-                            192 Comments
+                            {props.comments} Comments
                         </button>
                         <button className="py-1 text-gray-600">
                             <FontAwesomeIcon className="fa-lg ml-5" icon={faBookmark}/>
