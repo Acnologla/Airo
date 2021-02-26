@@ -1,11 +1,11 @@
-import client from "../../models/client"
-import { formatDate } from "../../src/utils/utils"
-import Comment from "../../src/components/comment"
+import client from "@/models/client"
+import { formatDate } from "@/src/utils/utils"
+import Comment from "@/src/components/comment"
 import useSWR, { mutate } from "swr"
 import axios from "axios"
 import { useRef, useContext } from "react"
-import mainContext from "../../src/context/main"
-import authRequest from "../../src/utils/authRequest"
+import mainContext from "@/src/context/main"
+import authRequest from "@/src/utils/authRequest"
 
 export default function Post({ post }) {
     if (!post || !post.id) return <h1>Not found</h1>

@@ -1,12 +1,13 @@
-import client from "../../models/client"
-import needAuth from "../../src/utils/needAuth"
+import client from "@/models/client"
+import needAuth from "@/src/utils/needAuth"
+import { rateLimit, getRateLimit } from "@/src/lib/rateLimit"
 
 /*
     type  0 = post comment
     type  1 = comment comment
 */
 
-export default async (req, res) => {
+export default rateLimit(getRateLimit, async (req, res) => {
     if (req.method === "POST") {
         return needAuth(async (req, res) => {
             const { content, target } = req.body
@@ -33,4 +34,4 @@ export default async (req, res) => {
         }
         return res.json(result.rows)
     }
-}
+})

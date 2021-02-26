@@ -1,7 +1,9 @@
-import client from "../../../models/client"
+import client from "@/models/client"
 import { sign } from "jsonwebtoken"
+import { rateLimit, loginRateLimit } from "@/src/lib/rateLimit"
 
-export default async (req, res) => {
+
+export default rateLimit(loginRateLimit, async (req, res) => {
     if (req.method === "POST"){
         const {username, password} = req.body
         const result = await client.query(
@@ -16,4 +18,4 @@ export default async (req, res) => {
         })
         res.status(200).json({token,user})
     }
-}
+})

@@ -1,8 +1,8 @@
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import "tailwindcss/tailwind.css";
 import Head from 'next/head'
-import Nav from "../src/components/navbar"
-import MainContext from "../src/context/main"
+import Nav from "@/src/components/navbar"
+import MainContext from "@/src/context/main"
 import { useEffect, useState } from "react"
 import axios from "axios"
 

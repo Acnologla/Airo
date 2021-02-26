@@ -1,6 +1,7 @@
-import client from "../../../models/client"
+import client from "@/models/client"
 import { sign } from "jsonwebtoken"
-export default async (req, res) => {
+import { rateLimit, loginRateLimit } from "@/src/lib/rateLimit"
+export default rateLimit(loginRateLimit, async (req, res) => {
     if (req.method === "POST") {
         const { username, password } = req.body
         if (!username) return res.status(400).send("Invalid username");
@@ -27,4 +28,4 @@ export default async (req, res) => {
                 res.status(500).end()
             })
     }
-}
+})

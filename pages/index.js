@@ -1,6 +1,6 @@
-import Content from "../src/components/content.js"
-import client from "../models/client"
-import { formatDate } from "../src/utils/utils.js"
+import Content from "@/src/components/content.js"
+import client from "@/models/client"
+import { formatDate } from "@/src/utils/utils.js"
 
 export default function Home({posts}) {
   return (
