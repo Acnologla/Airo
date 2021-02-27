@@ -6,6 +6,7 @@ import axios from "axios"
 import { useRef, useContext } from "react"
 import mainContext from "@/src/context/main"
 import authRequest from "@/src/utils/authRequest"
+import upvote from "@/src/utils/upvote"
 
 export default function Post({ post }) {
     if (!post || !post.id) return <h1>Not found</h1>
@@ -42,12 +43,15 @@ export default function Post({ post }) {
             }
             <h1>{post.title}</h1>
             <p>{post.content}</p>
+            <button onClick={() => upvote(post.id, 0, false)}>Like</button>
+            <br></br>
+            <button onClick={() => upvote(post.id, 0, true)}>Dislike</button>
             <p>{post.author.username}</p>
             <p>{post.created}</p>
             <section>
-                <br/>
+                <br />
                 <h2>Comentarios</h2>
-                {comments.map((comment,i) => <Comment key={i} comment={comment} />)}
+                {comments.map((comment, i) => <Comment key={i} comment={comment} />)}
             </section>
         </section>
     )
@@ -69,6 +73,10 @@ export async function getStaticProps({ params }) {
         const author = await client.query("SELECT id, username FROM Users where id = $1", [result.rows[0].author])
         post.author = author.rows[0]
         post.created = formatDate(post.created)
+        const upvotesResult = await client.query("SELECT COUNT(*) FILTER (where isDislike is true) AS disLikes, COUNT(*) FILTER (where isDislike is false) AS likes FROM Upvote WHERE postId = $1", [post.id])
+        const [{ likes, dislikes }] = upvotesResult.rows
+        post.likes = likes
+        post.dislikes = dislikes
     }
     return {
         props: {

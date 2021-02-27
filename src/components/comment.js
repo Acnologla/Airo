@@ -4,6 +4,8 @@ import axios from "axios"
 import { useRef, useContext } from "react"
 import mainContext from "@/src/context/main"
 import authRequest from "@/src/utils/authRequest"
+import upvote from "@/src/utils/upvote"
+
 export default function Comment({ comment }) {
     const context = useContext(mainContext)
     const content = useRef(null)
@@ -32,6 +34,9 @@ export default function Comment({ comment }) {
         <section style={{ marginLeft: "20px", backgroundColor: "grey", marginBottom: "20px" }}>
             <h1>{comment.author.username}</h1>
             <p>{comment.content} <br /> {formatDate(comment.created)} </p>
+            <button onClick={() => upvote(comment.id, 1, false)}>Like</button>
+            <br></br>
+            <button onClick={() => upvote(comment.id, 1, true)}>Dislike</button>
             {context.auth && <div style={{ width: "70%" }}>
                 <input ref={content} placeholder="content" />
                 <button onClick={sendComment}>Enviar</button>

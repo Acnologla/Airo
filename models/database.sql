@@ -23,3 +23,10 @@ CREATE TABLE Comments (
     content TEXT NOT NULL,
     created TIMESTAMPTZ NOT NULL
 )
+
+CREATE TABLE Upvote (
+    isDislike BOOLEAN NOT NULL,
+    author INT REFERENCES Users (id) NOT NULL,
+    postId INT REFERENCES Posts (id),
+    commentId INT REFERENCES Comments (id)
+)
