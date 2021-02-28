@@ -35,6 +35,13 @@ export default function Post({ post }) {
     }
     return (
         <section>
+            {context.auth && context.auth.id === post.author.id ? <div>
+
+                <button onClick={() => authRequest(`/api/posts/${post.id}`, {
+                    method: "DELETE"
+                })}>Deletar</button>
+
+            </div>: <></>}
             {context.auth &&
                 <div>
                     <input placeholder="content" ref={content} />

@@ -32,6 +32,13 @@ export default function Comment({ comment }) {
     }
     return (
         <section style={{ marginLeft: "20px", backgroundColor: "grey", marginBottom: "20px" }}>
+            {context.auth && context.auth.id === comment.author.id ?
+                <div>
+                    <button onClick={() => authRequest(`/api/comments/${comment.id}`, {
+                        method: "DELETE"
+                    })}>Deletar</button>                
+                    </div>
+                : <></>}
             <h1>{comment.author.username}</h1>
             <p>{comment.content} <br /> {formatDate(comment.created)} </p>
             <button onClick={() => upvote(comment.id, 1, false)}>Like</button>

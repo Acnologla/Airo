@@ -18,7 +18,7 @@ export default async (req, res) => {
             }
         }))(req,res)
     } else if (req.method === "GET") {
-        return rateLimit(getRateLimit, (req, res) => {
+        return rateLimit(getRateLimit, async (req, res) => {
             const limit = req.query.limit || 20
             const result = await client.query("SELECT * FROM Posts LIMIT $1", [limit])
             return res.json(result.rows)
