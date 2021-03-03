@@ -10,6 +10,12 @@ export const loginRateLimit = new RateLimiterMemory({
     duration: 60 * 30
 })
 
+export const patchRateLimit = new RateLimiterMemory({
+    points: 2,
+    duration: 60 * 30
+})
+
+
 export const rateLimit = (rateLimitType, callback) => {
     return (req,res) => {
         return new Promise(resolve => {

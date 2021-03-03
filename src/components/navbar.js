@@ -5,6 +5,7 @@ import {useContext} from "react"
 import MainContext from "../context/main"
 import React, { useState } from 'react';
 import Login from "./login"
+import Image from "./image"
 
 export default function NavBar() {
 
@@ -40,7 +41,7 @@ export default function NavBar() {
                 <div><FontAwesomeIcon className="cursor-pointer text-white fa-lg h-13 w-13 ml-5" icon={faCog} /></div>
                 {
                 context.auth ?  
-                <div className="h-6 w-6 ml-5 rounded-full bg-gray-500" alt="" /> : 
+                <Image/> : 
                 <button className="ml-5" onClick={() => setLogin(!login)}>Login</button> 
                 }
             </div>
