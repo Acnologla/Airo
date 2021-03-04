@@ -8,9 +8,9 @@ export default rateLimit(patchRateLimit, needAuth(async (req, res) => {
     if (req.method === "POST") {
         const form = new formidable({multiples: true})
         form.uploadDir = `${process.cwd()}/assets/avatar`
-        form.keepExtensions = true
+        form.maxFileSize = 20 * 1024 * 1024
         form.on('fileBegin', function (_, file) {
-            file.path = `${form.uploadDir}/${req.userID}.${file.name.split(".").pop()}`
+            file.path = `${form.uploadDir}/${req.userID}.png`
         })
         form.onPart = part => {
             if (part.filename && fileTypes.indexOf(part.mime) === -1) {

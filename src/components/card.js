@@ -10,7 +10,7 @@ export default function Card({post}) {
         <Link href={`/posts/${post.id}`}>
             <a>
             <div className="p-5 flex">
-                <img src="https://pbs.twimg.com/profile_images/1098817973484105729/ECyNxjXX_400x400.png" 
+                <img src={`/api/images/user/${post.author}`} 
                      className="sm:h-36 sm:w-36 h-16 w-16 bg-grey flex-shrink-0 border-none" />
                 <div className="ml-5">
                     <div>
